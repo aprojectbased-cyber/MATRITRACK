@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 40
+    marginBottom: 28
   },
   menuButton: {
     marginRight: 16
