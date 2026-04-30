@@ -18,12 +18,12 @@ const actionCards = [
   {
     key: 'footings',
     title: 'Footings',
-    icon: <MaterialCommunityIcons name="office-building" size={18} color="#e4f5f8" />
+    icon: <MaterialCommunityIcons name="office-building" size={30} color="#e4f5f8" />
   },
   {
     key: 'columns',
     title: 'Columns',
-    icon: <MaterialCommunityIcons name="view-column" size={18} color="#e4f5f8" />
+    icon: <MaterialCommunityIcons name="view-column" size={30} color="#e4f5f8" />
   }
 ];
 
@@ -125,30 +125,27 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   cardsGrid: {
-    flexDirection: 'row',
     gap: 12
   },
   actionCard: {
-    flex: 1,
     backgroundColor: '#0f4c5a',
     borderRadius: 16,
-    paddingVertical: 14,
-    paddingHorizontal: 10,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8
+    gap: 12
   },
   cardIconWrap: {
-    width: 34,
-    height: 34,
-    borderRadius: 10,
+    width: 50,
+    height: 50,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(228, 245, 248, 0.18)'
   },
   actionCardTitle: {
     color: '#e4f5f8',
-    fontSize: 13,
+    fontSize: 18,
     fontWeight: '700'
   },
   sidebar: {
