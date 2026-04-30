@@ -4,7 +4,7 @@ import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-ic
 import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const menuItems = [
-  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" />, active: true },
+  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" /> },
   { key: 'projects', label: 'Projects', icon: <MaterialIcons name="folder" size={16} color="#0b2028" /> },
   {
     key: 'reports',
@@ -29,6 +29,25 @@ const actionCards = [
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('dashboard');
+
+  const pageContentByMenu = {
+    dashboard: { title: 'Dashboard', cards: actionCards },
+    projects: {
+      title: 'Projects',
+      cards: [{ key: 'active-projects', title: 'Active Projects', icon: <MaterialIcons name="folder-open" size={30} color="#e4f5f8" /> }]
+    },
+    reports: {
+      title: 'Reports and Analytics',
+      cards: [{ key: 'report-center', title: 'Report Center', icon: <MaterialCommunityIcons name="file-chart" size={30} color="#e4f5f8" /> }]
+    },
+    settings: {
+      title: 'Settings',
+      cards: [{ key: 'app-settings', title: 'App Settings', icon: <Ionicons name="settings-sharp" size={30} color="#e4f5f8" /> }]
+    }
+  };
+
+  const currentPage = pageContentByMenu[selectedMenu];
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -48,10 +67,10 @@ export default function App() {
       </View>
 
       <View style={styles.mainContent}>
-        <Text style={styles.pageTitle}>Dashboard</Text>
+        <Text style={styles.pageTitle}>{currentPage.title}</Text>
 
         <View style={styles.cardsGrid}>
-          {actionCards.map((card) => (
+          {currentPage.cards.map((card) => (
             <TouchableOpacity key={card.key} style={styles.actionCard} accessibilityRole="button">
               <View style={styles.cardIconWrap}>{card.icon}</View>
               <Text style={styles.actionCardTitle}>{card.title}</Text>
