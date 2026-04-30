@@ -14,6 +14,19 @@ const menuItems = [
   { key: 'settings', label: 'Settings', icon: <Ionicons name="settings-sharp" size={16} color="#0b2028" /> }
 ];
 
+const actionCards = [
+  {
+    key: 'footings',
+    title: 'Footings',
+    icon: <MaterialCommunityIcons name="office-building" size={30} color="#e4f5f8" />
+  },
+  {
+    key: 'columns',
+    title: 'Columns',
+    icon: <MaterialCommunityIcons name="view-column" size={30} color="#e4f5f8" />
+  }
+];
+
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -21,14 +34,31 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="light" />
 
-      <TouchableOpacity
-        style={styles.hamburgerButton}
-        accessibilityRole="button"
-        accessibilityLabel={isSidebarOpen ? 'Close sidebar menu' : 'Open sidebar menu'}
-        onPress={() => setIsSidebarOpen((prev) => !prev)}
-      >
-        <Ionicons name={isSidebarOpen ? 'close' : 'menu'} size={30} color="#0f4c5a" />
-      </TouchableOpacity>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.hamburgerButton}
+          accessibilityRole="button"
+          accessibilityLabel={isSidebarOpen ? 'Close sidebar menu' : 'Open sidebar menu'}
+          onPress={() => setIsSidebarOpen((prev) => !prev)}
+        >
+          <Ionicons name={isSidebarOpen ? 'close' : 'menu'} size={30} color="#0f4c5a" />
+        </TouchableOpacity>
+
+        <Text style={styles.headerBrand}>MATRITRACK</Text>
+      </View>
+
+      <View style={styles.mainContent}>
+        <Text style={styles.pageTitle}>Dashboard</Text>
+
+        <View style={styles.cardsGrid}>
+          {actionCards.map((card) => (
+            <TouchableOpacity key={card.key} style={styles.actionCard} accessibilityRole="button">
+              <View style={styles.cardIconWrap}>{card.icon}</View>
+              <Text style={styles.actionCardTitle}>{card.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
 
       {isSidebarOpen && (
         <View style={styles.sidebar}>
@@ -64,13 +94,59 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#edf2f4'
   },
-  hamburgerButton: {
+  header: {
     marginTop: 10,
-    marginLeft: 12,
+    marginHorizontal: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  },
+  headerBrand: {
+    color: '#0f4c5a',
+    fontSize: 20,
+    fontWeight: '900',
+    letterSpacing: 0.8
+  },
+  hamburgerButton: {
     width: 42,
     height: 42,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  mainContent: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 20
+  },
+  pageTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#113440',
+    marginBottom: 16
+  },
+  cardsGrid: {
+    gap: 12
+  },
+  actionCard: {
+    backgroundColor: '#0f4c5a',
+    borderRadius: 16,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12
+  },
+  cardIconWrap: {
+    width: 50,
+    height: 50,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(228, 245, 248, 0.18)'
+  },
+  actionCardTitle: {
+    color: '#e4f5f8',
+    fontSize: 18,
+    fontWeight: '700'
   },
   sidebar: {
     position: 'absolute',
