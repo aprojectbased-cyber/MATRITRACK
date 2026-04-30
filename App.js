@@ -9,9 +9,9 @@ export default function App() {
   const horizontalPadding = 20;
   const contentWidth = width - horizontalPadding * 2;
   const cardWidth = (contentWidth - CARD_GAP) / 2;
-  const titleSize = Math.min(36, Math.max(22, width * 0.09));
-  const iconSize = Math.min(40, Math.max(22, width * 0.1));
-  const cardTextSize = Math.min(30, Math.max(16, width * 0.065));
+  const titleSize = Math.min(46, Math.max(28, width * 0.11));
+  const iconSize = Math.min(52, Math.max(28, width * 0.12));
+  const cardTextSize = Math.min(46, Math.max(22, width * 0.09));
 
   const cards = [
     { key: 'footings', label: 'Footings', icon: <MaterialCommunityIcons name="hammer-screwdriver" size={iconSize} color="#41525a" /> },
@@ -24,7 +24,7 @@ export default function App() {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity accessibilityRole="button" style={styles.menuButton}>
-            <Ionicons name="menu" size={Math.min(28, Math.max(20, width * 0.075))} color="#1e3139" />
+            <Ionicons name="menu" size={Math.min(36, Math.max(24, width * 0.09))} color="#1e3139" />
           </TouchableOpacity>
           <Text style={[styles.title, { fontSize: titleSize }]}>MATRITRACK</Text>
         </View>
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f8fa',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    gap: 10
+    padding: 12,
+    gap: 14
   },
   cardText: {
     color: '#1f323b',
