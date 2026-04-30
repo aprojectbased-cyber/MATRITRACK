@@ -81,28 +81,27 @@ export default function App() {
 
       {isSidebarOpen && (
         <View style={styles.sidebarLayer}>
+          <Pressable
+            style={styles.backdrop}
+            accessibilityRole="button"
+            accessibilityLabel="Close sidebar menu"
+            onPress={() => setIsSidebarOpen(false)}
+          />
+
           <View style={styles.sidebar}>
             <Text style={styles.brand}>MATRITRACK</Text>
 
             <View style={styles.menuList}>
-              {menuItems.map((item) => {
-                const isActive = selectedMenu === item.key;
-
-                return (
-                  <TouchableOpacity
-                    key={item.key}
-                    style={[styles.menuItem, isActive && styles.menuItemActive]}
-                    accessibilityRole="button"
-                    onPress={() => {
-                      setSelectedMenu(item.key);
-                      setIsSidebarOpen(false);
-                    }}
-                  >
-                    {item.icon}
-                    <Text style={[styles.menuText, isActive && styles.menuTextActive]}>{item.label}</Text>
-                  </TouchableOpacity>
-                );
-              })}
+              {menuItems.map((item) => (
+                <TouchableOpacity
+                  key={item.key}
+                  style={[styles.menuItem, item.active && styles.menuItemActive]}
+                  accessibilityRole="button"
+                >
+                  {item.icon}
+                  <Text style={[styles.menuText, item.active && styles.menuTextActive]}>{item.label}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
 
             <View style={styles.logoutWrap}>
@@ -112,13 +111,6 @@ export default function App() {
               </TouchableOpacity>
             </View>
           </View>
-
-          <Pressable
-            style={styles.backdrop}
-            accessibilityRole="button"
-            accessibilityLabel="Close sidebar menu"
-            onPress={() => setIsSidebarOpen(false)}
-          />
         </View>
       )}
     </SafeAreaView>
