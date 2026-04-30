@@ -9,7 +9,7 @@ export default function App() {
   const { width } = useWindowDimensions();
   const contentWidth = Math.max(0, width - SCREEN_PADDING * 2);
   const cardWidth = Math.max(140, (contentWidth - CARD_GAP) / 2);
-  const titleSize = Math.min(46, Math.max(28, width * 0.11));
+  const titleSize = Math.min(34, Math.max(20, width * 0.075));
   const iconSize = Math.min(52, Math.max(28, width * 0.12));
   const cardTextSize = Math.min(32, Math.max(18, width * 0.07));
 
