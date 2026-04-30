@@ -1,6 +1,6 @@
 # MatriTrack Mobile (Expo)
 
-Cross-platform starter app (iOS + Android) matching your provided home-screen concept, configured for Expo SDK 54.
+Cross-platform starter app (iOS + Android) matching your provided home-screen concept.
 
 ## Run locally
 
