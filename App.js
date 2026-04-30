@@ -1,29 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
-const cards = [
-  { key: 'footings', label: 'Footings', icon: <MaterialCommunityIcons name="hammer-screwdriver" size={52} color="#41525a" /> },
-  { key: 'columns', label: 'Columns', icon: <FontAwesome5 name="university" size={48} color="#41525a" /> }
-];
+const CARD_GAP = 12;
 
 export default function App() {
+  const { width } = useWindowDimensions();
+  const horizontalPadding = 20;
+  const contentWidth = width - horizontalPadding * 2;
+  const cardWidth = (contentWidth - CARD_GAP) / 2;
+  const titleSize = Math.min(36, Math.max(22, width * 0.09));
+  const iconSize = Math.min(40, Math.max(22, width * 0.1));
+  const cardTextSize = Math.min(30, Math.max(16, width * 0.065));
+
+  const cards = [
+    { key: 'footings', label: 'Footings', icon: <MaterialCommunityIcons name="hammer-screwdriver" size={iconSize} color="#41525a" /> },
+    { key: 'columns', label: 'Columns', icon: <FontAwesome5 name="university" size={iconSize - 4} color="#41525a" /> }
+  ];
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity accessibilityRole="button" style={styles.menuButton}>
-            <Ionicons name="menu" size={36} color="#1e3139" />
+            <Ionicons name="menu" size={Math.min(28, Math.max(20, width * 0.075))} color="#1e3139" />
           </TouchableOpacity>
-          <Text style={styles.title}>MATRITRACK</Text>
+          <Text style={[styles.title, { fontSize: titleSize }]}>MATRITRACK</Text>
         </View>
 
-        <View style={styles.grid}>
+        <View style={[styles.grid, { gap: CARD_GAP }]}>
           {cards.map((card) => (
-            <TouchableOpacity key={card.key} style={styles.card}>
+            <TouchableOpacity key={card.key} style={[styles.card, { width: cardWidth }]}>
               {card.icon}
-              <Text style={styles.cardText}>{card.label}</Text>
+              <Text style={[styles.cardText, { fontSize: cardTextSize }]}>{card.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -45,23 +55,21 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 40
+    marginBottom: 28
   },
   menuButton: {
     marginRight: 16
   },
   title: {
-    fontSize: 46,
     fontWeight: '800',
     letterSpacing: 1,
-    color: '#1e3139'
+    color: '#1e3139',
+    flexShrink: 1
   },
   grid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: 'row'
   },
   card: {
-    width: '48%',
     aspectRatio: 1,
     borderRadius: 24,
     borderWidth: 1,
@@ -69,10 +77,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f8fa',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 24
+    padding: 10,
+    gap: 10
   },
   cardText: {
-    fontSize: 46,
     color: '#1f323b',
     fontWeight: '500'
   }
