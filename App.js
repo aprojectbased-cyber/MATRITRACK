@@ -213,7 +213,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4
+    gap: 4,
+    transform: [{ translateY: -4 }]
   },
   bottomNavText: {
     fontSize: 10,
