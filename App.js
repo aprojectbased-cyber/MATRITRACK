@@ -4,14 +4,10 @@ import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-ic
 import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const menuItems = [
-  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={20} color="#0e2a33" />, active: true },
-  { key: 'projects', label: 'Projects', icon: <MaterialIcons name="folder" size={20} color="#0b2028" /> },
-  {
-    key: 'reports',
-    label: 'Reports and Analytics',
-    icon: <MaterialCommunityIcons name="chart-areaspline" size={20} color="#0b2028" />
-  },
-  { key: 'settings', label: 'Settings', icon: <Ionicons name="settings-sharp" size={20} color="#0b2028" /> }
+  { key: 'dashboard', label: 'Dashboard', icon: 'home' },
+  { key: 'projects', label: 'Projects', icon: 'folder' },
+  { key: 'reports', label: 'Reports & Analytics', icon: 'chart-areaspline' },
+  { key: 'settings', label: 'Settings', icon: 'settings-sharp' }
 ];
 
 const actionCards = [
@@ -29,6 +25,7 @@ const actionCards = [
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -48,7 +45,7 @@ export default function App() {
       </View>
 
       <View style={styles.mainContent}>
-        <Text style={styles.pageTitle}>Dashboard</Text>
+        <Text style={styles.pageTitle}>{menuItems.find((item) => item.key === activeTab)?.label ?? 'Dashboard'}</Text>
 
         <View style={styles.cardsGrid}>
           {actionCards.map((card) => (
@@ -58,6 +55,33 @@ export default function App() {
             </TouchableOpacity>
           ))}
         </View>
+      </View>
+
+
+      <View style={styles.bottomNav}>
+        {menuItems.map((item) => {
+          const isActive = activeTab === item.key;
+
+          return (
+            <TouchableOpacity
+              key={`bottom-${item.key}`}
+              style={styles.bottomNavItem}
+              accessibilityRole="button"
+              onPress={() => setActiveTab(item.key)}
+            >
+              {item.key === 'projects' ? (
+                <MaterialIcons name={item.icon} size={22} color={isActive ? '#0f4c5a' : '#6d8790'} />
+              ) : item.key === 'reports' ? (
+                <MaterialCommunityIcons name={item.icon} size={22} color={isActive ? '#0f4c5a' : '#6d8790'} />
+              ) : (
+                <Ionicons name={item.icon} size={22} color={isActive ? '#0f4c5a' : '#6d8790'} />
+              )}
+              <Text style={[styles.bottomNavText, isActive && styles.bottomNavTextActive]} numberOfLines={1}>
+                {item.label}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
 
       {isSidebarOpen && (
@@ -73,16 +97,30 @@ export default function App() {
             <Text style={styles.brand}>MATRITRACK</Text>
 
             <View style={styles.menuList}>
-              {menuItems.map((item) => (
-                <TouchableOpacity
-                  key={item.key}
-                  style={[styles.menuItem, item.active && styles.menuItemActive]}
-                  accessibilityRole="button"
-                >
-                  {item.icon}
-                  <Text style={[styles.menuText, item.active && styles.menuTextActive]}>{item.label}</Text>
-                </TouchableOpacity>
-              ))}
+              {menuItems.map((item) => {
+                const isActive = activeTab === item.key;
+
+                return (
+                  <TouchableOpacity
+                    key={item.key}
+                    style={[styles.menuItem, isActive && styles.menuItemActive]}
+                    accessibilityRole="button"
+                    onPress={() => {
+                      setActiveTab(item.key);
+                      setIsSidebarOpen(false);
+                    }}
+                  >
+                    {item.key === 'projects' ? (
+                      <MaterialIcons name={item.icon} size={20} color={isActive ? '#0e2a33' : '#f4fbff'} />
+                    ) : item.key === 'reports' ? (
+                      <MaterialCommunityIcons name={item.icon} size={20} color={isActive ? '#0e2a33' : '#f4fbff'} />
+                    ) : (
+                      <Ionicons name={item.icon} size={20} color={isActive ? '#0e2a33' : '#f4fbff'} />
+                    )}
+                    <Text style={[styles.menuText, isActive && styles.menuTextActive]}>{item.label}</Text>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
 
             <View style={styles.logoutWrap}>
@@ -158,6 +196,32 @@ const styles = StyleSheet.create({
   actionCardTitle: {
     color: '#e4f5f8',
     fontSize: 16,
+    fontWeight: '700'
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
+    borderTopWidth: 1,
+    borderTopColor: '#d6e2e6',
+    paddingVertical: 10,
+    paddingHorizontal: 6,
+    marginBottom: 8
+  },
+  bottomNavItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4
+  },
+  bottomNavText: {
+    fontSize: 10,
+    color: '#6d8790',
+    fontWeight: '600'
+  },
+  bottomNavTextActive: {
+    color: '#0f4c5a',
     fontWeight: '700'
   },
   sidebarLayer: {
