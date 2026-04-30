@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const menuItems = [
   { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" />, active: true },
