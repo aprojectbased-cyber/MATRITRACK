@@ -11,7 +11,7 @@ export default function App() {
   const cardWidth = Math.max(140, (contentWidth - CARD_GAP) / 2);
   const titleSize = Math.min(46, Math.max(28, width * 0.11));
   const iconSize = Math.min(52, Math.max(28, width * 0.12));
-  const cardTextSize = Math.min(46, Math.max(22, width * 0.09));
+  const cardTextSize = Math.min(32, Math.max(18, width * 0.07));
 
   const cards = [
     { key: 'footings', label: 'Footings', icon: <MaterialCommunityIcons name="hammer-screwdriver" size={iconSize} color="#41525a" /> },
@@ -33,7 +33,14 @@ export default function App() {
           {cards.map((card) => (
             <TouchableOpacity key={card.key} style={[styles.card, { width: cardWidth }]}>
               {card.icon}
-              <Text style={[styles.cardText, { fontSize: cardTextSize }]}>{card.label}</Text>
+              <Text
+                style={[styles.cardText, { fontSize: cardTextSize }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.75}
+              >
+                {card.label}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -84,6 +91,8 @@ const styles = StyleSheet.create({
   },
   cardText: {
     color: '#1f323b',
-    fontWeight: '500'
+    fontWeight: '500',
+    textAlign: 'center',
+    width: '100%'
   }
 });
