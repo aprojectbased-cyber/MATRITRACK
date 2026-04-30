@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const menuItems = [
   { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" />, active: true },
@@ -61,27 +61,36 @@ export default function App() {
       </View>
 
       {isSidebarOpen && (
-        <View style={styles.sidebar}>
-          <Text style={styles.brand}>MATRITRACK</Text>
+        <View style={styles.sidebarLayer}>
+          <Pressable
+            style={styles.backdrop}
+            accessibilityRole="button"
+            accessibilityLabel="Close sidebar menu"
+            onPress={() => setIsSidebarOpen(false)}
+          />
 
-          <View style={styles.menuList}>
-            {menuItems.map((item) => (
-              <TouchableOpacity
-                key={item.key}
-                style={[styles.menuItem, item.active && styles.menuItemActive]}
-                accessibilityRole="button"
-              >
-                {item.icon}
-                <Text style={[styles.menuText, item.active && styles.menuTextActive]}>{item.label}</Text>
+          <View style={styles.sidebar}>
+            <Text style={styles.brand}>MATRITRACK</Text>
+
+            <View style={styles.menuList}>
+              {menuItems.map((item) => (
+                <TouchableOpacity
+                  key={item.key}
+                  style={[styles.menuItem, item.active && styles.menuItemActive]}
+                  accessibilityRole="button"
+                >
+                  {item.icon}
+                  <Text style={[styles.menuText, item.active && styles.menuTextActive]}>{item.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <View style={styles.logoutWrap}>
+              <TouchableOpacity style={styles.logoutButton} accessibilityRole="button">
+                <Ionicons name="power" size={16} color="#0c2530" />
+                <Text style={styles.logoutText}>Logout</Text>
               </TouchableOpacity>
-            ))}
-          </View>
-
-          <View style={styles.logoutWrap}>
-            <TouchableOpacity style={styles.logoutButton} accessibilityRole="button">
-              <Ionicons name="power" size={16} color="#0c2530" />
-              <Text style={styles.logoutText}>Logout</Text>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
       )}
@@ -148,17 +157,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700'
   },
+  sidebarLayer: {
+    ...StyleSheet.absoluteFillObject,
+    flexDirection: 'row'
+  },
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)'
+  },
   sidebar: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
     width: 270,
+    height: '100%',
     backgroundColor: '#0f4c5a',
     paddingHorizontal: 16,
     paddingTop: 24,
     paddingBottom: 24,
-    justifyContent: 'space-between',
     shadowColor: '#000',
     shadowOpacity: 0.18,
     shadowRadius: 10,
@@ -172,7 +185,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1
   },
   menuList: {
-    marginTop: 20,
+    marginTop: 8,
     gap: 8
   },
   menuItem: {
@@ -196,6 +209,7 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   logoutWrap: {
+    marginTop: 'auto',
     borderTopWidth: 1,
     borderTopColor: 'rgba(216, 239, 244, 0.5)',
     paddingTop: 14
