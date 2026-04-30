@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
 const CARD_GAP = 12;
+const SCREEN_PADDING = 20;
 
 export default function App() {
   const { width } = useWindowDimensions();
-  const horizontalPadding = 20;
-  const contentWidth = width - horizontalPadding * 2;
-  const cardWidth = (contentWidth - CARD_GAP) / 2;
+  const contentWidth = Math.max(0, width - SCREEN_PADDING * 2);
+  const cardWidth = Math.max(140, (contentWidth - CARD_GAP) / 2);
   const titleSize = Math.min(46, Math.max(28, width * 0.11));
   const iconSize = Math.min(52, Math.max(28, width * 0.12));
   const cardTextSize = Math.min(46, Math.max(22, width * 0.09));
@@ -21,7 +21,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent} bounces={false}>
         <View style={styles.header}>
           <TouchableOpacity accessibilityRole="button" style={styles.menuButton}>
             <Ionicons name="menu" size={Math.min(36, Math.max(24, width * 0.09))} color="#1e3139" />
@@ -29,7 +29,7 @@ export default function App() {
           <Text style={[styles.title, { fontSize: titleSize }]}>MATRITRACK</Text>
         </View>
 
-        <View style={[styles.grid, { gap: CARD_GAP }]}>
+        <View style={[styles.grid, { gap: CARD_GAP }]}> 
           {cards.map((card) => (
             <TouchableOpacity key={card.key} style={[styles.card, { width: cardWidth }]}>
               {card.icon}
@@ -37,7 +37,7 @@ export default function App() {
             </TouchableOpacity>
           ))}
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -47,10 +47,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f4f5f7'
   },
-  container: {
-    flex: 1,
+  scrollContent: {
+    flexGrow: 1,
     paddingTop: 18,
-    paddingHorizontal: 20
+    paddingHorizontal: SCREEN_PADDING,
+    paddingBottom: 24
   },
   header: {
     flexDirection: 'row',
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
     flexShrink: 1
   },
   grid: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   card: {
     aspectRatio: 1,
