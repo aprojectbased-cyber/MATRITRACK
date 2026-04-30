@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const menuItems = [
-  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" />, active: true },
+  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" /> },
   { key: 'projects', label: 'Projects', icon: <MaterialIcons name="folder" size={16} color="#0b2028" /> },
   {
     key: 'reports',
@@ -29,6 +29,25 @@ const actionCards = [
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('dashboard');
+
+  const pageContentByMenu = {
+    dashboard: { title: 'Dashboard', cards: actionCards },
+    projects: {
+      title: 'Projects',
+      cards: [{ key: 'active-projects', title: 'Active Projects', icon: <MaterialIcons name="folder-open" size={30} color="#e4f5f8" /> }]
+    },
+    reports: {
+      title: 'Reports and Analytics',
+      cards: [{ key: 'report-center', title: 'Report Center', icon: <MaterialCommunityIcons name="file-chart" size={30} color="#e4f5f8" /> }]
+    },
+    settings: {
+      title: 'Settings',
+      cards: [{ key: 'app-settings', title: 'App Settings', icon: <Ionicons name="settings-sharp" size={30} color="#e4f5f8" /> }]
+    }
+  };
+
+  const currentPage = pageContentByMenu[selectedMenu];
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -48,10 +67,10 @@ export default function App() {
       </View>
 
       <View style={styles.mainContent}>
-        <Text style={styles.pageTitle}>Dashboard</Text>
+        <Text style={styles.pageTitle}>{currentPage.title}</Text>
 
         <View style={styles.cardsGrid}>
-          {actionCards.map((card) => (
+          {currentPage.cards.map((card) => (
             <TouchableOpacity key={card.key} style={styles.actionCard} accessibilityRole="button">
               <View style={styles.cardIconWrap}>{card.icon}</View>
               <Text style={styles.actionCardTitle}>{card.title}</Text>
@@ -61,28 +80,45 @@ export default function App() {
       </View>
 
       {isSidebarOpen && (
-        <View style={styles.sidebar}>
-          <Text style={styles.brand}>MATRITRACK</Text>
+        <View style={styles.sidebarLayer}>
+          <View style={styles.sidebar}>
+            <Text style={styles.brand}>MATRITRACK</Text>
 
-          <View style={styles.menuList}>
-            {menuItems.map((item) => (
-              <TouchableOpacity
-                key={item.key}
-                style={[styles.menuItem, item.active && styles.menuItemActive]}
-                accessibilityRole="button"
-              >
-                {item.icon}
-                <Text style={[styles.menuText, item.active && styles.menuTextActive]}>{item.label}</Text>
+            <View style={styles.menuList}>
+              {menuItems.map((item) => {
+                const isActive = selectedMenu === item.key;
+
+                return (
+                  <TouchableOpacity
+                    key={item.key}
+                    style={[styles.menuItem, isActive && styles.menuItemActive]}
+                    accessibilityRole="button"
+                    onPress={() => {
+                      setSelectedMenu(item.key);
+                      setIsSidebarOpen(false);
+                    }}
+                  >
+                    {item.icon}
+                    <Text style={[styles.menuText, isActive && styles.menuTextActive]}>{item.label}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            <View style={styles.logoutWrap}>
+              <TouchableOpacity style={styles.logoutButton} accessibilityRole="button">
+                <Ionicons name="power" size={16} color="#0c2530" />
+                <Text style={styles.logoutText}>Logout</Text>
               </TouchableOpacity>
-            ))}
+            </View>
           </View>
 
-          <View style={styles.logoutWrap}>
-            <TouchableOpacity style={styles.logoutButton} accessibilityRole="button">
-              <Ionicons name="power" size={16} color="#0c2530" />
-              <Text style={styles.logoutText}>Logout</Text>
-            </TouchableOpacity>
-          </View>
+          <Pressable
+            style={styles.backdrop}
+            accessibilityRole="button"
+            accessibilityLabel="Close sidebar menu"
+            onPress={() => setIsSidebarOpen(false)}
+          />
         </View>
       )}
     </SafeAreaView>
@@ -148,17 +184,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700'
   },
+  sidebarLayer: {
+    ...StyleSheet.absoluteFillObject,
+    flexDirection: 'row'
+  },
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)'
+  },
   sidebar: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
     width: 270,
+    height: '100%',
     backgroundColor: '#0f4c5a',
     paddingHorizontal: 16,
     paddingTop: 24,
     paddingBottom: 24,
-    justifyContent: 'space-between',
     shadowColor: '#000',
     shadowOpacity: 0.18,
     shadowRadius: 10,
@@ -172,7 +212,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1
   },
   menuList: {
-    marginTop: 20,
+    marginTop: 8,
     gap: 8
   },
   menuItem: {
@@ -196,6 +236,7 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   logoutWrap: {
+    marginTop: 'auto',
     borderTopWidth: 1,
     borderTopColor: 'rgba(216, 239, 244, 0.5)',
     paddingTop: 14
