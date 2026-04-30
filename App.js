@@ -206,8 +206,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#d6e2e6',
     paddingVertical: 10,
-    paddingHorizontal: 6,
-    marginBottom: 8
+    paddingHorizontal: 6
   },
   bottomNavItem: {
     flex: 1,
