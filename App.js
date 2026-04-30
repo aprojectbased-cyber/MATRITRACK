@@ -4,14 +4,14 @@ import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-ic
 import { Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const menuItems = [
-  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={16} color="#0e2a33" />, active: true },
-  { key: 'projects', label: 'Projects', icon: <MaterialIcons name="folder" size={16} color="#0b2028" /> },
+  { key: 'dashboard', label: 'Dashboard', icon: <Ionicons name="home" size={20} color="#0e2a33" />, active: true },
+  { key: 'projects', label: 'Projects', icon: <MaterialIcons name="folder" size={20} color="#0b2028" /> },
   {
     key: 'reports',
     label: 'Reports and Analytics',
-    icon: <MaterialCommunityIcons name="chart-areaspline" size={16} color="#0b2028" />
+    icon: <MaterialCommunityIcons name="chart-areaspline" size={20} color="#0b2028" />
   },
-  { key: 'settings', label: 'Settings', icon: <Ionicons name="settings-sharp" size={16} color="#0b2028" /> }
+  { key: 'settings', label: 'Settings', icon: <Ionicons name="settings-sharp" size={20} color="#0b2028" /> }
 ];
 
 const actionCards = [
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.2)'
   },
   sidebar: {
-    width: 270,
+    width: 320,
     height: '100%',
     backgroundColor: '#0f4c5a',
-    paddingHorizontal: 16,
-    paddingTop: 24,
+    paddingHorizontal: 20,
+    paddingTop: 28,
     paddingBottom: 24,
     shadowColor: '#000',
     shadowOpacity: 0.18,
@@ -183,28 +183,28 @@ const styles = StyleSheet.create({
   },
   brand: {
     color: '#f1f6f8',
-    fontSize: 26,
+    fontSize: 30,
     fontWeight: '900',
     letterSpacing: 1
   },
   menuList: {
-    marginTop: 8,
-    gap: 8
+    marginTop: 12,
+    gap: 12
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    borderRadius: 14
+    gap: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 16
   },
   menuItemActive: {
     backgroundColor: '#6eaab2'
   },
   menuText: {
     color: '#f4fbff',
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '600'
   },
   menuTextActive: {
