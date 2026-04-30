@@ -126,28 +126,31 @@ const styles = StyleSheet.create({
   mainContent: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 20
+    paddingTop: 34
   },
   pageTitle: {
     fontSize: 22,
     fontWeight: '800',
     color: '#113440',
-    marginBottom: 16
+    marginBottom: 18
   },
   cardsGrid: {
-    gap: 12
+    flexDirection: 'row',
+    gap: 10
   },
   actionCard: {
+    flex: 1,
     backgroundColor: '#0f4c5a',
     borderRadius: 16,
-    padding: 16,
-    flexDirection: 'row',
+    paddingVertical: 18,
+    paddingHorizontal: 8,
     alignItems: 'center',
-    gap: 12
+    justifyContent: 'center',
+    gap: 8
   },
   cardIconWrap: {
-    width: 50,
-    height: 50,
+    width: 46,
+    height: 46,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -155,7 +158,7 @@ const styles = StyleSheet.create({
   },
   actionCardTitle: {
     color: '#e4f5f8',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700'
   },
   sidebarLayer: {
