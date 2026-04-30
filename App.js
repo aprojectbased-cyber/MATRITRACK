@@ -56,13 +56,14 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingTop: 18,
+    paddingTop: 36,
     paddingHorizontal: SCREEN_PADDING,
     paddingBottom: 24
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 8,
     marginBottom: 28
   },
   menuButton: {
