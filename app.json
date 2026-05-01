@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "MatriTrack",
+    "slug": "matritrack-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.matritrack.mobile",
+      "versionCode": 1
+    }
+  }
+}
