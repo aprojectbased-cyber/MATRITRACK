@@ -49,6 +49,8 @@ npm run build:apk
 npm run build:aab
 ```
 
+If you get `'eas' is not recognized`, use `npx eas --version` once, then rerun.
+
 The Android package/applicationId is `com.matritrack.mobile` (configured in `app.json`).
 
 ## Current screen
